@@ -251,4 +251,42 @@ end
 27. Likewise, make it so that the user is signed to be able to add to a post. Do so within views/boards/show.html.erb.
 
 ```
+<%if current_user != nil%>
+<form action="/insert_post" method="post">
+  <div>
+    <label for="title_box">
+      Title
+    </label>
+
+    <input type="text" id="title_box" name="query_title">
+  </div>
+
+  <div>
+    <label for="body_box">
+      Body
+    </label>
+
+    <textarea id="body_box" name="query_body" rows="3"></textarea>
+  </div>
+
+  <div>
+    <label for="expires_on_box">
+      Expires on
+    </label>
+
+    <input type="date" id="expires_on_box" name="query_expires_on">
+  </div>
+
+  <input type="hidden" id="board_id_box" name="query_board_id" value="<%= @the_board.id %>">
+
+  <button>
+    Add post
+  </button>
+</form>
+
+<%else%>
+  <p> You must be <a href="/users/sign_in"> signed in </a> to add a post</p>
+<%end%>
 ```
+
+***
