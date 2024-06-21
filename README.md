@@ -10,4 +10,32 @@ Grading: https://grades.firstdraft.com/resources/7d036602-19b3-406d-a496-62cdd9c
 
 <hr>
 
+Notes:
 
+1. (1:23) Start the server with bin/dev. - website loads correctly
+2. (2 min) Load data with `rails sample_data`. 
+3. Use cookies to sign in and sign out.
+4. Use a gem called devise for a boilerplate for sign up, sign out, edit profile, cancel account, password reset email, etc. The gem has been added to the project.
+5. Setup devise:
+- Install the gem with `rails generate devise:install`.
+- Follow instructions in the terminal.
+- (5 min) Navigate into config/environments/development.rb and insert the following script:
+```
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+```
+- Go ro config/environments/routes.db and add: ` root to: "home#index"` and, subsequently, comment out the get("/", ...) statement.
+- Ensure you have flash messages in app/views/layouts/application.html.erb.
+     For example:
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+This was done previously.
+
+6. (7 min) Go to config/initializers/devise.rb. Go to line 269 and modify :delete to :get
+
+```
+ # The default HTTP method used to sign out a resource. Default is :delete.
+  config.sign_out_via = :get #:delete
+```
+
+ 
