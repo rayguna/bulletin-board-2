@@ -190,3 +190,65 @@ end
 ```
 
 23. (24 min) Customize the UI.
+
+24. Add user emails on views/boards/index.html.erb:
+
+```
+<ul>
+  <% @list_of_boards.each do |a_board| %>
+    <li>
+      <a href="/boards/<%= a_board.id %>">
+        <%= a_board.name %>
+      </a>
+
+      <div>
+        <% matching_users = User.where({:id => a_board.user_id}) %>
+        <% the_user = matching_users.at(0)%>
+        <%=the_user.email%>
+      </div>
+
+      <hr>
+
+    </li>
+  <% end %>
+</ul>
+```
+
+25. Need to store user_id to link the tables. Do so within app/controllers/posts_controller.rb.
+
+```
+  def create
+    the_post = Post.new
+    the_post.title = params.fetch("query_title")
+    the_post.body = params.fetch("query_body")
+    the_post.expires_on = params.fetch("query_expires_on")
+    the_post.board_id = params.fetch("query_board_id")
+
+    the_post.user_id = current_user.id
+```
+26. (27 min) Issue, the bulletin board "Add post" form should now be shown when user is not signed in because there is no user_id associated with the post. So, let's not display the form unless it is signed in. Use an if statement wrapper. Do so within the views/boards/index.html.erb.
+
+```
+    <%if current_user != nil%>
+    <form action="/insert_board" method="post">
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <button>
+        Add board
+      </button>
+    </form>
+    <%else%>
+      <p> You must be <a href="/users/sign_in"> signed in </a> to add a board</p>
+    <%end%>
+```
+
+27. Likewise, make it so that the user is signed to be able to add to a post. Do so within views/boards/show.html.erb.
+
+```
+```
