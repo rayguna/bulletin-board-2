@@ -27,6 +27,10 @@ class BoardsController < ApplicationController
     the_board = Board.new
     the_board.name = params.fetch("query_name")
 
+    #add user id when creating board.
+    the_board.user_id = current_user.id
+
+
     if the_board.valid?
       the_board.save
       redirect_to("/boards/#{the_board.id}", { :notice => "Board created successfully." })

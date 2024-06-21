@@ -110,3 +110,83 @@ bulletin-board-2 main % rake db:migrate
 ```
 
 Problem is fixed.
+
+19. (19 min). Add user_is to the table when user updates the table within the app/controllers/boards_controler.rb table, as follows:
+
+```
+  def create
+    the_board = Board.new
+    the_board.name = params.fetch("query_name")
+
+    #add user id when creating board.
+    the_board.user_id = current_user.id
+```
+
+20. Navigate to lib/tasks/dev.rake. Update it to have users by adding the following script.
+
+```
+  usernames = ["alice", "bob", "carol", "dave", "eve"]
+
+  usernames.each do |username|
+    user = User.new
+    user.email = "#{username}@example.com"
+    user.password = "password"
+    user.save
+  end
+```
+
+Type in the terminal `rake sample_data`. 
+
+(21 min) Navigate to `https://effective-tribble-w9rpxpqg4g7cv5x5-3000.app.github.dev/rails/db/tables/users/data`. You will see that the users table contains 5 user entries.
+
+21. (22 min) Further modify dev.rake to populate user, board, and post:
+
+```
+  usernames = ["alice", "bob", "carol", "dave", "eve"]
+
+  usernames.each do |username|
+    user = User.new
+    user.email = "#{username}@example.com"
+    user.password = "password"
+    user.save
+  end
+
+  5.times do
+    board = Board.new
+    board.name = Faker::Address.community
+    board.user_id = User.all.sample.id
+
+    board.save
+
+    rand(10..50).times do
+      post = Post.new
+      post.board_id = User.all.sample.id
+```
+
+Type rake sample_data to execute the script.
+
+22. Update dev.rake file as follows. Note to destroy existing tables data initially and end the script by notifying user the number of entries in each table:
+
+```
+#dev.rake
+
+desc "Fill the database tables with some sample data"
+task({ :sample_data => :environment }) do
+  puts "Sample data task running"
+  if Rails.env.development?
+    #destroy existing ones before wriring new ones
+    User.destroy_all
+    Board.destroy_all
+    Post.destroy_all
+  end
+
+  ...
+
+  #notify use the number of rows in the tables
+  puts "There are now #{Board.count} rows in the boards table."
+  puts "There are now #{User.count} rows in the users table."
+  puts "There are now #{Post.count} rows in the posts table."
+end
+```
+
+23. (24 min) Customize the UI.
