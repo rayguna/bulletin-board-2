@@ -111,7 +111,7 @@ bulletin-board-2 main % rake db:migrate
 
 Problem is fixed.
 
-19. (19 min). Add user_is to the table when user updates the table within the app/controllers/boards_controler.rb table, as follows:
+19. (19 min). Add user_id to the table when user updates the table within the app/controllers/boards_controler.rb table, as follows:
 
 ```
   def create
