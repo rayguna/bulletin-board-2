@@ -23,7 +23,7 @@ Notes:
 ```
 config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 ```
-- Go ro config/environments/routes.db and add: ` root to: "home#index"` and, subsequently, comment out the get("/", ...) statement.
+- Go to config/environments/routes.db and add: ` root to: "home#index"` and, subsequently, comment out the get("/", ...) statement.
 - Ensure you have flash messages in app/views/layouts/application.html.erb.
      For example:
        <p class="notice"><%= notice %></p>
