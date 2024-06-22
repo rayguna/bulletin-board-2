@@ -41,7 +41,7 @@ This was done previously.
 7. (8 min) Generate users table by typing into the terminal: `rails g devise user`. 
 8. Create database tables with `rake db:migrate`.
 
-(9 min) When you fo to routes.bd, you will find that the file has been modified. It contains the line that says devise for :users.
+(9 min) When you go to routes.bd, you will find that the file has been modified. It contains the line that says devise for :users.
 
 ```
 Rails.application.routes.draw do
